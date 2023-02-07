@@ -1,9 +1,6 @@
 {
-  "name": "b",
-  "scripts": {
-    "build":"node build.js"
-  },
-  "dependencies": {
-    "c": "workspace: *"
-  }
+  "name": "ic-template",
+  "description": "",
+  "type": "module",
+	"license": "MIT"
 }

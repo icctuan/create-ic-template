@@ -24,17 +24,19 @@ let projectName;
 function init() {
   const program = new commander.Command(packageJson.name)
     .version(packageJson.version)
-    .arguments("<project-directory>")
-    .usage(`${chalk.green("<project-directory>")} [options]`)
+    .arguments("<project-directory>") // 按次序指定 命令参数，<>必选，[]可选
     .action((name) => {
+      // action拿到 命令参数 处理
       projectName = name;
     })
     .option(
-      "--template <tempalte-type>",
-      "specify a template for the created project"
+      "--template <template-type>", // --template选项参数
+      "specify a template for the created project" // 选项描述
     )
-    .allowUnknownOption()
+    .allowUnknownOption() // 默认情况下，使用未知选项会提示错误。如要将未知选项视作普通命令参数，并继续处理其他部分
+    .usage(`${chalk.green("<project-directory>")} [options]`) // 修改帮助信息的首行提示
     .on("--help", () => {
+      // on监听命令和选项可以执行自定义函数
       console.log(
         `    Only ${chalk.green("<project-directory>")} is required.`
       );
@@ -52,6 +54,7 @@ function init() {
 
   const options = program.opts();
 
+  // 检查到未输入项目名称
   if (typeof projectName === "undefined") {
     console.error("Please specify the project directory:");
     console.log(
@@ -59,9 +62,7 @@ function init() {
     );
     console.log();
     console.log("For example:");
-    console.log(
-      `  ${chalk.cyan(program.name())} ${chalk.green("my-app")}`
-    );
+    console.log(`  ${chalk.cyan(program.name())} ${chalk.green("my-app")}`);
     console.log();
     console.log(
       `Run ${chalk.cyan(`${program.name()} --help`)} to see all options.`
@@ -87,13 +88,13 @@ function createApp({ name, template, useYarn }) {
     console.log(
       chalk.yellow(
         `You are using Node ${process.version} so the project will be bootstrapped with an old unsupported version of tools.\n\n` +
-        `Please update to Node 14 or higher for a better, fully supported experience.\n`
+          `Please update to Node 14 or higher for a better, fully supported experience.\n`
       )
     );
   }
 
-  const root = path.resolve(name);
-  const appName = path.basename(root);
+  const root = path.resolve(name); // 返回当前工作目录的绝对路径/ + name -> my-app/
+  const appName = path.basename(root); // 返回 root 的最后一部分path -> name
 
   checkAppName(appName);
   // 创建文件夹
@@ -106,11 +107,11 @@ function createApp({ name, template, useYarn }) {
   console.log(`Creating a new app in ${chalk.green(root)}.`);
   console.log();
 
-  const originalDirectory = process.cwd();
+  const originalDirectory = process.cwd(); // 返回 Node.js 进程的当前工作目录
   // 将工作进程目录提升到root
   process.chdir(root);
   if (!useYarn && !checkThatNpmCanReadCwd()) {
-    process.exit(1);
+    process.exit(1); // 以 code 的退出状态终止node.js进程
   }
 
   if (!useYarn) {
@@ -120,7 +121,7 @@ function createApp({ name, template, useYarn }) {
         console.log(
           chalk.yellow(
             `You are using npm ${npmInfo.npmVersion} so the project will be bootstrapped with an old unsupported version of tools.\n\n` +
-            `Please update to npm 6 or higher for a better, fully supported experience.\n`
+              `Please update to npm 6 or higher for a better, fully supported experience.\n`
           )
         );
       }
@@ -136,27 +137,28 @@ function createApp({ name, template, useYarn }) {
   });
 }
 
-
 function run({ root, appName, originalDirectory, template, useYarn }) {
   getTemplateInstallPackage(template, originalDirectory).then(
     (templateToInstall) => {
-      getPackageInfo(templateToInstall)
+      getPackageInfo(templateToInstall) // 拆解返回 { 版本version?, 名字name }
         .then((templateInfo) =>
           checkIfOnline(useYarn).then((isOnline) => ({
-            isOnline,
-            templateInfo, //{name:"cra-template-123"}
+            isOnline, // boolean
+            templateInfo, // { name:"cra-template-123" }
           }))
-        ).then(({ isOnline, templateInfo }) => {
+        )
+        .then(({ isOnline, templateInfo }) => {
           return install({
             root, // my-app/
             useYarn, // false
-            dependencies: [templateToInstall], //["cra-template-123"]
-            isOnline
+            dependencies: [templateToInstall], // ["cra-template-123"]
+            isOnline,
           }).then(() => ({
             templateInfo,
           }));
         })
         .then(({ templateInfo }) => {
+          // { name:"cra-template-123" }
           downloadTemplate({
             appPath: root, // my-app/
             useYarn, // false
@@ -206,16 +208,17 @@ function run({ root, appName, originalDirectory, template, useYarn }) {
     }
   );
 }
-// my-app/mode_Moduless  false  ["cra-template-123"]
+
+// @params： my-app/node_Moduless  false  ["cra-template-123"]
 function install({ root, useYarn, dependencies, isOnline }) {
   return new Promise((resolve, reject) => {
     let command;
     let args;
     if (useYarn) {
-      command = 'yarnpkg';
-      args = ['add', '--exact'];
+      command = "yarnpkg";
+      args = ["add", "--exact"];
       if (!isOnline) {
-        args.push('--offline');
+        args.push("--offline");
       }
       [].push.apply(args, dependencies);
 
@@ -224,32 +227,31 @@ function install({ root, useYarn, dependencies, isOnline }) {
       // Unfortunately we can only do this for Yarn because npm support for
       // equivalent --prefix flag doesn't help with this issue.
       // This is why for npm, we run checkThatNpmCanReadCwd() early instead.
-      args.push('--cwd');
+      args.push("--cwd");
       args.push(root);
 
       if (!isOnline) {
-        console.log(chalk.yellow('You appear to be offline.'));
-        console.log(chalk.yellow('Falling back to the local Yarn cache.'));
+        console.log(chalk.yellow("You appear to be offline."));
+        console.log(chalk.yellow("Falling back to the local Yarn cache."));
         console.log();
       }
     } else {
-      command = 'npm'; // npm install [--xxxx xxx "cra-template-123"]
+      command = "npm"; // npm install [--xxxx xxx "cra-template-123"]
       args = [
-        'install',
-        '--no-audit', // https://github.com/facebook/create-react-app/issues/11174
-        '--save',
-        '--save-exact',
-        '--loglevel',
-        'error',
+        "install",
+        "--no-audit", // https://github.com/facebook/create-react-app/issues/11174
+        "--save",
+        "--save-exact",
+        "--loglevel",
+        "error",
       ].concat(dependencies);
-
     }
 
-    const child = spawn(command, args, { stdio: 'inherit' });
-    child.on('close', code => {
+    const child = spawn(command, args, { stdio: "inherit" });
+    child.on("close", (code) => {
       if (code !== 0) {
         reject({
-          command: `${command} ${args.join(' ')}`,
+          command: `${command} ${args.join(" ")}`,
         });
         return;
       }
@@ -259,10 +261,10 @@ function install({ root, useYarn, dependencies, isOnline }) {
 }
 /**
  *
-            appPath: root, // my-app/
-            useYarn, // false
-            appName, // my-app
-            templateName: templateInfo.name, // "cra-template-123"
+    appPath: root, // my-app/
+    useYarn, // false
+    appName, // my-app
+    templateName: templateInfo.name, // "cra-template-123"
  */
 
 function downloadTemplate({ appPath, useYarn, appName, templateName }) {
@@ -281,14 +283,14 @@ function downloadTemplate({ appPath, useYarn, appName, templateName }) {
   ); // my-app/node_m/cra-template-123
 
   // Copy the files for the user '/code' 'template' -> '/code/template'
-  const templateDir = path.join(templatePath, 'template'); // my-app/node_m/cra-template-123/template
+  const templateDir = path.join(templatePath, "template"); // my-app/node_m/cra-template-123/template
   if (fs.existsSync(templateDir)) {
     // 删除pkg,pkg.lock or yarn.lock
-    fs.removeSync(`${appPath}/package.json`)
-    fs.removeSync(`${appPath}/package-lock.json`)
-    fs.removeSync(`${appPath}/yarn.lock`)
+    fs.removeSync(`${appPath}/package.json`);
+    fs.removeSync(`${appPath}/package-lock.json`);
+    fs.removeSync(`${appPath}/yarn.lock`);
     fs.copySync(templateDir, appPath);
-    fs.removeSync(`${appPath}/node_modules`)
+    fs.removeSync(`${appPath}/node_modules`);
   } else {
     console.error(
       `Could not locate supplied template: ${chalk.green(templateDir)}`
@@ -332,9 +334,10 @@ function downloadTemplate({ appPath, useYarn, appName, templateName }) {
   console.log("Happy hacking!");
 }
 
+/** 根据输入的template选项，返回要安装的模板的名字 */
 function getTemplateInstallPackage(template, originalDirectory) {
-  let templateToInstall = "@newrank/cyta-template";
-  //123
+  let templateToInstall = "ic-template"; // 如果选项template有值，没有则默认选择模板ic-template
+
   if (template) {
     if (template.match(/^file:/)) {
       templateToInstall = `file:${path.resolve(
@@ -348,12 +351,12 @@ function getTemplateInstallPackage(template, originalDirectory) {
       // for tar.gz or alternative paths
       templateToInstall = template;
     } else {
-      // Add prefix '@newrank/cyta-template-' to non-prefixed templates, leaving any
+      // Add prefix '@scope/templateName@version' to non-prefixed templates, leaving any
       // @scope/ and @version intact.
       const packageMatch = template.match(/^(@[^/]+\/)?([^@]+)?(@.+)?$/);
-      const scope = packageMatch[1] || "";
-      const templateName = packageMatch[2] || "";
-      const version = packageMatch[3] || "";
+      const scope = packageMatch[1] || ""; // @scope/
+      const templateName = packageMatch[2] || ""; // templateName
+      const version = packageMatch[3] || ""; // @version
 
       if (
         templateName === templateToInstall ||
@@ -362,11 +365,11 @@ function getTemplateInstallPackage(template, originalDirectory) {
         // Covers:
         // - cra-template
         // - @SCOPE/cra-template
-        // - cra-template-NAME
-        // - @SCOPE/cra-template-NAME
-        templateToInstall = `${scope}${templateName}${version}`;
+        // - cra-template-[NAME]
+        // - @SCOPE/cra-template-[NAME]
+        templateToInstall = `${scope}${templateName}${version}`; // ⭐一般就只走这里，和 默认模板名 相同或者是 默认模板名-xxx
       } else if (version && !scope && !templateName) {
-        // Covers using @SCOPE only
+        // Covers using @SCOPE only，比如 @name
         templateToInstall = `${version}/${templateToInstall}`;
       } else {
         // Covers templates without the `cra-template-` prefix:
@@ -419,7 +422,7 @@ function extractStream(stream, dest) {
 }
 
 // Extract package name from tarball url or path.
-//cra-template-123
+// 传入：cra-template-123
 function getPackageInfo(installPackage) {
   if (installPackage.match(/^.+\.(tgz|tar\.gz)$/)) {
     return getTemporaryDirectory()
@@ -477,7 +480,7 @@ function getPackageInfo(installPackage) {
     ));
     return Promise.resolve({ name, version });
   }
-  return Promise.resolve({ name: installPackage });
+  return Promise.resolve({ name: installPackage }); // { name: cra-template-123 }
 }
 
 function checkNpmVersion() {
@@ -523,15 +526,14 @@ function checkAppName(appName) {
         `Cannot create a project named ${chalk.green(
           `"${appName}"`
         )} because a dependency with the same name exists.\n` +
-        `Due to the way npm works, the following names are not allowed:\n\n`
+          `Due to the way npm works, the following names are not allowed:\n\n`
       ) +
-      chalk.cyan(dependencies.map((depName) => `  ${depName}`).join("\n")) +
-      chalk.red("\n\nPlease choose a different project name.")
+        chalk.cyan(dependencies.map((depName) => `  ${depName}`).join("\n")) +
+        chalk.red("\n\nPlease choose a different project name.")
     );
     process.exit(1);
   }
 }
-
 
 // If project only contains files generated by GH, it’s safe.
 // Also, if project contains remnant error logs from a previous
@@ -661,26 +663,26 @@ function checkThatNpmCanReadCwd() {
   console.error(
     chalk.red(
       `Could not start an npm process in the right directory.\n\n` +
-      `The current directory is: ${chalk.bold(cwd)}\n` +
-      `However, a newly started npm process runs in: ${chalk.bold(
-        npmCWD
-      )}\n\n` +
-      `This is probably caused by a misconfigured system terminal shell.`
+        `The current directory is: ${chalk.bold(cwd)}\n` +
+        `However, a newly started npm process runs in: ${chalk.bold(
+          npmCWD
+        )}\n\n` +
+        `This is probably caused by a misconfigured system terminal shell.`
     )
   );
   if (process.platform === "win32") {
     console.error(
       chalk.red(`On Windows, this can usually be fixed by running:\n\n`) +
-      `  ${chalk.cyan(
-        "reg"
-      )} delete "HKCU\\Software\\Microsoft\\Command Processor" /v AutoRun /f\n` +
-      `  ${chalk.cyan(
-        "reg"
-      )} delete "HKLM\\Software\\Microsoft\\Command Processor" /v AutoRun /f\n\n` +
-      chalk.red(`Try to run the above two lines in the terminal.\n`) +
-      chalk.red(
-        `To learn more about this problem, read: https://blogs.msdn.microsoft.com/oldnewthing/20071121-00/?p=24433/`
-      )
+        `  ${chalk.cyan(
+          "reg"
+        )} delete "HKCU\\Software\\Microsoft\\Command Processor" /v AutoRun /f\n` +
+        `  ${chalk.cyan(
+          "reg"
+        )} delete "HKLM\\Software\\Microsoft\\Command Processor" /v AutoRun /f\n\n` +
+        chalk.red(`Try to run the above two lines in the terminal.\n`) +
+        chalk.red(
+          `To learn more about this problem, read: https://blogs.msdn.microsoft.com/oldnewthing/20071121-00/?p=24433/`
+        )
     );
   }
   return false;
@@ -712,4 +714,3 @@ function checkIfOnline(useYarn) {
 module.exports = {
   init,
 };
-
