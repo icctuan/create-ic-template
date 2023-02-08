@@ -1,0 +1,12 @@
+public
+dist
+/node_modules
+.postcss.config.js
+.commitlint.config.js
+.stylelint.config.js
+.eslintrc.js
+.gitignore
+.prettierignore
+.babelrc
+.prettierrc.js
+
