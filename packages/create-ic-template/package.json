@@ -5,7 +5,8 @@
   "description": "开发模板",
   "main": "index.js",
   "scripts": {
-    "build": "node build.js"
+    "build": "node build.js",
+    "start": "node index.js"
   },
   "bin": {
     "create-ic-template": "./index.js"
@@ -29,6 +30,7 @@
     "tar-pack": "^3.4.1",
     "tmp": "^0.2.1",
     "url": "^0.11.0",
-    "validate-npm-package-name": "^5.0.0"
+    "validate-npm-package-name": "^5.0.0",
+    "ic-template": "*"
   }
 }

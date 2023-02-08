@@ -1,6 +1,6 @@
 {
   "name": "ic-template",
-  "description": "",
+  "description": "默认模板",
   "type": "module",
 	"license": "MIT"
 }
