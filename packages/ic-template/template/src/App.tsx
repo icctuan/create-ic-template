@@ -1,7 +1,7 @@
-import { FC } from "react";
+import { FC } from 'react'
 
-const App: FC<{}> = () => {
-  return <div>测试</div>;
-};
+const App: FC<any> = () => {
+	return <div>测试aa</div>
+}
 
-export default App;
+export default App

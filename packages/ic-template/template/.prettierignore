@@ -14,5 +14,3 @@ LICENSE
 .eslintcache
 *.lock
 yarn-error.log
-CNAME
-src/assets/style/*.css
