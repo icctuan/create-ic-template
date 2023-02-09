@@ -147,16 +147,16 @@ function run({ root, appName, originalDirectory, template, useYarn }) {
             templateInfo, // { name:"cra-template-123" }
           }))
         )
-        // .then(({ isOnline, templateInfo }) => {
-        //   return install({
-        //     root, // my-app/
-        //     useYarn, // false
-        //     dependencies: [templateToInstall], // ["cra-template-123"]
-        //     isOnline,
-        //   }).then(() => ({
-        //     templateInfo,
-        //   }));
-        // })
+        .then(({ isOnline, templateInfo }) => {
+          return install({
+            root, // my-app/
+            useYarn, // false
+            dependencies: [templateToInstall], // ["cra-template-123"]
+            isOnline,
+          }).then(() => ({
+            templateInfo,
+          }));
+        })
         .then(({ templateInfo }) => {
           // { name:"cra-template-123" }
           downloadTemplate({
