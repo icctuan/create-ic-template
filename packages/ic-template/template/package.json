@@ -1,12 +1,20 @@
 {
 	"name": "react-webpack",
 	"description": "react + webpack + typescript",
-	"type": "commonjs",
+	"type": "module",
 	"license": "MIT",
 	"scripts": {
-		"start": "webpack serve --config webpack.dev.js",
+		"start": "webpack serve --config webpack.dev.cjs",
 		"build": "webpack --config webpack.prod.js",
-		"prepare": "husky install"
+		"prepare": "husky install",
+		"lint-staged": "lint-staged"
+	},
+	"lint-staged": {
+		"**/*.css": "stylelint --fix **/*.css",
+		"**/*.{js,jsx,ts,tsx}": "eslint **/*.{js,jsx,ts,tsx}",
+		"**/*.{js,jsx,tsx,ts,css,md,json}": [
+			"prettier --write"
+		]
 	},
 	"dependencies": {
 		"react": "^18.2.0",

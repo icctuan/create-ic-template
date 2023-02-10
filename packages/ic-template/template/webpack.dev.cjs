@@ -1,5 +1,5 @@
 const { merge } = require('webpack-merge')
-const common = require('./webpack.config.js')
+const common = require('./webpack.config.cjs')
 
 /** 打包体积分析插件 */
 const BundleAnalyzerPlugin =
@@ -26,9 +26,9 @@ module.exports = merge(common, {
 		client: {
 			overlay: { errors: true, warnings: false }
 		}
-	},
-	plugins: [
-		// 打包体积分析插件
-		new BundleAnalyzerPlugin()
-	]
+	}
+	// plugins: [
+	// 	// 打包体积分析插件
+	// 	new BundleAnalyzerPlugin()
+	// ]
 })

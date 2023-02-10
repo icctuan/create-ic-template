@@ -46,5 +46,7 @@ module.exports = {
     "react/react-in-jsx-scope": ["off"], // 兼容设置：使用JSX的文件中不再导入React
     semi: 0, // 缺少分号，行尾必须使用分号
     "no-var": 2, // 禁止使用 var，必须用 let 或 const
+    '@typescript-eslint/explicit-function-return-type': 'off',
+		'@typescript-eslint/no-non-null-assertion': 'off',
   },
 };

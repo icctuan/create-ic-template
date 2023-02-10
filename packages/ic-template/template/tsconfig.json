@@ -1,27 +1,27 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".", // 以该文件所在目录作为根目录
-    "paths": {
-      // 将进口重新映射到相对于baseUrl的查询位置
-      "@/*": ["./src/*"] // 使用 `@/*` 字符来代表 src/* 下的路径
-    },
-    "jsx": "react-jsx",
-    "sourceMap": true, // 生成 sourceMap 文件
-    "target": "ESNext", // 将代码编译为最新版本的 JS
-    "useDefineForClassFields": true, // 使用 Object.defineProperty 定义 class 中的属性，而非使用 obj.key = value 的形式定义属性
-    "lib": ["DOM", "DOM.Iterable", "ESNext"], // 引入 ES 最新特性和 DOM 接口的类型定义
-    "allowJs": false, // 不允许在tsx?中使用jsx?
-    "skipLibCheck": true, // 跳过对 .d.ts 文件的类型检查
-    "esModuleInterop": false, // 不允许使用 import 引入使用 export = 导出的内容
-    "allowSyntheticDefaultImports": true, // 允许对不包含默认导出的模块使用默认导入(Babel会做兼容，如果导出为ES6则原样输出，但webpack会做兼容)
-    "strict": true, // 启用严格的类型检查
-    "forceConsistentCasingInFileNames": true, // import文件名大小写敏感
-    "module": "ESNext", // 使用 ES Module 格式打包编译后的文件
-    "moduleResolution": "Node", // 使用 Node 的模块解析策略
-    "resolveJsonModule": true, // 允许引入 JSON 文件
-    "isolatedModules": true, // 该属性要求所有文件都是 ES Module 模块
-    "noEmit": true // 不需要编译输出文件
-  }
-  // 使用 references 字段引入的配置文件需要设置 composite: true 字段，并用 include 或 files 等等属性指明配置覆盖的文件范围。
-  // "references": [] // 项目引用: 允许用户为项目的不同部分使用不同的 TypeScript 配置
+	"compilerOptions": {
+		"baseUrl": ".", // 以该文件所在目录作为根目录
+		"paths": {
+			// 将进口重新映射到相对于baseUrl的查询位置
+			"@/*": ["./src/*"] // 使用 `@/*` 字符来代表 src/* 下的路径
+		},
+		"jsx": "react-jsx",
+		"sourceMap": true, // 生成 sourceMap 文件
+		"target": "ESNext", // 将代码编译为最新版本的 JS
+		"useDefineForClassFields": true, // 使用 Object.defineProperty 定义 class 中的属性，而非使用 obj.key = value 的形式定义属性
+		"lib": ["DOM", "DOM.Iterable", "ESNext"], // 引入 ES 最新特性和 DOM 接口的类型定义
+		"allowJs": false, // 不允许在tsx?中使用jsx?
+		"skipLibCheck": true, // 跳过对 .d.ts 文件的类型检查
+		"esModuleInterop": false, // 不允许使用 import 引入使用 export = 导出的内容
+		"allowSyntheticDefaultImports": true, // 允许对不包含默认导出的模块使用默认导入(Babel会做兼容，如果导出为ES6则原样输出，但webpack会做兼容)
+		"strict": true, // 启用严格的类型检查
+		"forceConsistentCasingInFileNames": true, // import文件名大小写敏感
+		"module": "ESNext", // 使用 ES Module 格式打包编译后的文件
+		"moduleResolution": "Node", // 使用 Node 的模块解析策略
+		"resolveJsonModule": true, // 允许引入 JSON 文件
+		"isolatedModules": true, // 该属性要求所有文件都是 ES Module 模块
+		"noEmit": true // 不需要编译输出文件
+	}
+	// 使用 references 字段引入的配置文件需要设置 composite: true 字段，并用 include 或 files 等等属性指明配置覆盖的文件范围。
+	// "references": [] // 项目引用: 允许用户为项目的不同部分使用不同的 TypeScript 配置
 }
