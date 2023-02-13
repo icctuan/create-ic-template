@@ -47,6 +47,8 @@ module.exports = {
 		semi: 0, // 缺少分号，行尾必须使用分号
 		'no-var': 2, // 禁止使用 var，必须用 let 或 const
 		'@typescript-eslint/explicit-function-return-type': 'off',
-		'@typescript-eslint/no-non-null-assertion': 'off'
+		'@typescript-eslint/no-non-null-assertion': 'off',
+		'@typescript-eslint/no-explicit-any': 'off',
+		'@typescript-eslint/no-empty-function': 'off'
 	}
 }

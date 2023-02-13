@@ -58,8 +58,9 @@ module.exports = {
 				test: /\.less$/,
 				use: [
 					// style-loader：合并后的 css 插入到 DOM 中
-					// 将style-loader替换成 MiniCssExtractPlugin.loader，实现将 css 代码提取到单独的文件
-					MiniCssExtractPlugin.loader,
+					'style-loader',
+					// // 将style-loader替换成 MiniCssExtractPlugin.loader，实现将 css 代码提取到单独的文件
+					// MiniCssExtractPlugin.loader,
 					// 分析出各个 css 文件之间的关系，把各个 css 文件合并成一段 css
 					{
 						loader: 'css-loader',
@@ -104,7 +105,11 @@ module.exports = {
 	},
 	resolve: {
 		// 让文件省略后缀名，按从左到右的顺序依次尝试解析
-		extensions: ['.js', '.jsx', '.ts', '.tsx']
+		extensions: ['.js', '.jsx', '.ts', '.tsx'],
+		// 路径别名
+		alias: {
+			'@': path.resolve('src')
+		}
 	},
 	plugins: [
 		// 自动将打包后的文件插入html
@@ -132,10 +137,10 @@ module.exports = {
 		minimize: true,
 		// 自定义压缩方式
 		minimizer: [new TerserPlugin(), new CssMinimizerPlugin()]
+	},
+	// 排除打包第三方库，结合使用cdn引入第三方库（引入的库文件已经压缩优化过）
+	externals: {
+		react: 'React',
+		'react-dom': 'ReactDOM'
 	}
-	// // 排除打包第三方库，可以结合使用cdn的方式
-	// externals: {
-	// 	react: 'React',
-	// 	'react-dom': 'ReactDOM'
-	// }
 }

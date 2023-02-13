@@ -1,7 +1,9 @@
 import { FC } from 'react'
+import RouterView from './core/Router/RouterView'
+import '@/assets/style/index.css'
 
 const App: FC<any> = () => {
-	return <div>测试aa</div>
+	return <RouterView />
 }
 
 export default App
