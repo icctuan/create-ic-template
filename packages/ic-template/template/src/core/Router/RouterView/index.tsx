@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import routes from '@/routes'
 import { Provider } from '@/core/context/router'
 import { useGlobal } from '@/core/context/global'
-// import { getMenuItems } from '../utils'
+import { getMenuItems } from '../utils'
 
 export type RouteContainerProps = {
 	// routes: Routes
@@ -33,10 +33,9 @@ const RouterView: FC<RouteContainerProps> = props => {
 			routes.find(route => route.path === '/*' || route.path === '/')
 				?.children || []
 
-		// // 获取菜单需要显示的items
-		// const o = getMenuItems(layoutRoutes, routeAccess || {})
-		// console.log('!!!!!', layoutRoutes)
-		// setRouteState(o)
+		// 获取菜单需要显示的items
+		const o = getMenuItems(layoutRoutes, routeAccess || {})
+		setRouteState(o)
 	}, [routes, routeAccess])
 
 	return (

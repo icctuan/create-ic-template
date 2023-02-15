@@ -1,5 +1,4 @@
 const path = require('path')
-const webpack = require('webpack')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 /** 将css提取到单独的文件 */
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -14,8 +13,8 @@ module.exports = {
 	output: {
 		filename: '[name].[contenthash:8].js',
 		path: path.resolve(__dirname, './dist'),
-		clean: true // 清理构建目录
-		// publicPath: "dist/", // 放在cdn的就用cdn的路径，相对路径代表相对于html页面的路径
+		clean: true, // 清理构建目录
+		publicPath: '/' // 放在cdn的就用cdn的路径，相对路径代表相对于html页面的路径
 	},
 	module: {
 		rules: [

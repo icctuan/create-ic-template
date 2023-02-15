@@ -1,9 +1,10 @@
 import { RouteObject } from 'react-router'
 
-export type Merge<T, U, X = Pick<U, Exclude<keyof U, keyof T & keyof U>>> = Pick<
-	T & X,
-	keyof T | keyof X
-  >
+export type Merge<
+	T,
+	U,
+	X = Pick<U, Exclude<keyof U, keyof T & keyof U>>
+> = Pick<T & X, keyof T | keyof X>
 
 interface RouteExtension {
 	/* 路由显示icon */
@@ -18,14 +19,10 @@ interface RouteExtension {
 	layout?:
 		| boolean
 		| {
-				/* 渲染左边的sider组件 */
-				leftSiderRender?: boolean
-				/* 是否渲染到左边的菜单项中 */
-				leftItemRender?: boolean
-				/* 是否渲染头部header组件 */
-				headerRender?: boolean
+				/* 是否渲染到左边的菜单项目中 */
+				leftRender?: boolean
 				/* 是否渲染到头部的菜单项目中 */
-				topItemRender?: boolean
+				topRender?: boolean
 		  }
 	/* 扩展的children */
 	children?: RouteConfig[]

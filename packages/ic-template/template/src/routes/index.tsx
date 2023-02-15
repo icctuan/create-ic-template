@@ -1,6 +1,4 @@
-import { LazyExoticComponent, ReactNode, Suspense, lazy } from 'react'
-// import { Navigate, RouteObject } from 'react-router-dom'
-import ProcessLoading from '@/components/Loading/ProcessLoading'
+import { lazy } from 'react'
 import { Routes } from './type'
 import { lazyLoad } from '@/core/Router/utils'
 
@@ -11,7 +9,28 @@ const routes: Routes = [
 		children: [
 			{
 				path: 'home',
+				name: '主页',
 				element: lazyLoad(lazy(() => import('@/pages/Home')))
+			},
+			{
+				path: 'hasChildren',
+				name: '测试',
+				children: [
+					{
+						path: 'children1',
+						name: 'children1',
+						element: lazyLoad(
+							lazy(() => import('@/pages/hasChildren/children1'))
+						)
+					},
+					{
+						path: 'children2',
+						name: 'children2',
+						element: lazyLoad(
+							lazy(() => import('@/pages/hasChildren/children2'))
+						)
+					}
+				]
 			}
 		]
 	},
