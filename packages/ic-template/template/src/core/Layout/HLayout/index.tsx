@@ -1,10 +1,13 @@
+import { FC, useEffect, useState } from 'react'
+import { useLocation, useRoutes } from 'react-router-dom'
+import { Breadcrumb, Layout, Menu } from 'antd'
+
+import TopHeader from './TopHeader'
+
 import { useRouteConfig } from '@/core/context/router'
 import routes from '@/routes'
-import { Breadcrumb, Layout, Menu } from 'antd'
-import { useEffect, useState } from 'react'
-import { useLocation, useRoutes } from 'react-router-dom'
+
 import styles from './index.module.less'
-import TopHeader from './TopHeader'
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -25,7 +28,7 @@ function getOpenKeys(location: ReturnType<typeof useLocation>) {
 	return keys
 }
 
-const HLayout = () => {
+const HLayout: FC<any> = () => {
 	const location = useLocation()
 	const { leftTabs, topTabs } = useRouteConfig()
 

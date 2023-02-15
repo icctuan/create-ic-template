@@ -31,6 +31,12 @@ const routes: Routes = [
 						)
 					}
 				]
+			},
+			{
+				path: 'access',
+				name: '权限',
+				access: 'new',
+				element: lazyLoad(lazy(() => import('@/pages/Home')))
 			}
 		]
 	},

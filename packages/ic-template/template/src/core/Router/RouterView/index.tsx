@@ -24,6 +24,8 @@ const RouterView: FC<RouteContainerProps> = props => {
 		globalState: { routeAccess }
 	} = useGlobal()
 
+	console.log(routeAccess)
+
 	useEffect(() => {
 		if (!routes.length) {
 			return

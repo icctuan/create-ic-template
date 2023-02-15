@@ -3,13 +3,13 @@ import { LazyExoticComponent, ReactNode, Suspense } from 'react'
 import { cloneDeep, isObject } from 'lodash-es'
 import { Routes } from '@/routes/type'
 import ProcessLoading from '@/components/Loading/ProcessLoading'
-
 type ItemType = {
 	key: string
 	label: ReactNode
 	children?: any[]
 	icon?: string
 }
+
 /**
  * @description 路由懒加载
  * @param {Element} Com 需要访问的组件
@@ -17,7 +17,7 @@ type ItemType = {
  */
 export const lazyLoad = (Com: LazyExoticComponent<any>): ReactNode => {
 	return (
-		<Suspense fallback={<>aaa</>}>
+		<Suspense fallback={<ProcessLoading />}>
 			<Com />
 		</Suspense>
 	)

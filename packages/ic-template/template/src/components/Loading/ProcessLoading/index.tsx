@@ -24,7 +24,10 @@ Nprogress.configure({
 // progress queue: singleton
 const queue: (NodeJS.Timeout | undefined)[] = []
 
-const ProcessLoading: ProcessLoadingProps = props => {
+const ProcessLoading: ProcessLoadingProps = (props: {
+	visible?: boolean
+	spin?: boolean
+}) => {
 	const { visible = false, spin = false } = props
 
 	const timer = useRef<NodeJS.Timeout>()
