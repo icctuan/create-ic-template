@@ -5,7 +5,7 @@ export interface GlobalProviderProps {
 	children: ReactNode
 }
 
-// 项目初始化配置，这里异步去根据账户密码获取用户信息
+// 项目初始化配置，这里可以异步去判断用户是否登录拿到用户信息，未登录则跳转登录链接
 const getInitialState = async (): Promise<InitialStateType> => {
 	const values: InitialStateType = {
 		settings: {}, // 默认布局信息设置
@@ -25,6 +25,7 @@ const accessFactory = (
 	}
 }
 
+/** 全局context */
 const GlobalProvider: FC<GlobalProviderProps> = props => {
 	const { children } = props
 	const [globalState, setGlobalState] =

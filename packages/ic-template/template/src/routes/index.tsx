@@ -41,12 +41,12 @@ const routes: Routes = [
 		]
 	},
 	{
-		path: '/403',
-		element: lazyLoad(lazy(() => import('@/pages/NotAccess')))
+		path: '/404',
+		element: lazyLoad(lazy(() => import('@/pages/NotFound')))
 	},
 	{
-		path: '*',
-		element: lazyLoad(lazy(() => import('@/pages/NotFound')))
+		path: '/403',
+		element: lazyLoad(lazy(() => import('@/pages/NoAccess')))
 	}
 ]
 

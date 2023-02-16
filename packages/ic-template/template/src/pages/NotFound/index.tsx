@@ -2,7 +2,7 @@
 import { FC } from 'react'
 
 const NotFound: FC<any> = () => {
-	return <div>404</div>
+	return <div>404 Not Found</div>
 }
 
 export default NotFound

@@ -22,6 +22,7 @@ const context = createContext<GlobalContext>({
 	dispatch: () => {}
 })
 
+/** 全局context */
 export const { Provider } = context
 
 export function useGlobal() {

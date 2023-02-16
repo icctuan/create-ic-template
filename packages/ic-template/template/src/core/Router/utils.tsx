@@ -1,14 +1,12 @@
 import { Link } from 'react-router-dom'
 import { LazyExoticComponent, ReactNode, Suspense } from 'react'
 import { cloneDeep, isObject } from 'lodash-es'
-import { Routes } from '@/routes/type'
+
 import ProcessLoading from '@/components/Loading/ProcessLoading'
-type ItemType = {
-	key: string
-	label: ReactNode
-	children?: any[]
-	icon?: string
-}
+
+import { ItemType, SubMenuType } from 'antd/lib/menu/hooks/useItems'
+import { RouteConfig, Routes } from '@/routes/type'
+import { AddItemArgs, DeepSeparateArgs, Items } from './type'
 
 /**
  * @description 路由懒加载
@@ -23,6 +21,29 @@ export const lazyLoad = (Com: LazyExoticComponent<any>): ReactNode => {
 	)
 }
 
+/**
+ * @description 递归查询对应的路由
+ * @param {String} path 当前访问地址
+ * @param {Array} routes 路由列表
+ * @returns RouteConfig
+ */
+export const searchRoute = (path: string, routes: Routes): RouteConfig => {
+	const lastStr = path.split('/').at(-1)
+	const _deep = (routes: Routes) => {
+		let result: RouteConfig = {}
+		for (let i = 0; i < routes.length; i++) {
+			const item = routes[i]
+			if (item.path === lastStr || item.path === `/${lastStr}`) return item
+			if (item.children?.length) {
+				const res = _deep(item.children)
+				if (Object.keys(res).length) result = res
+			}
+		}
+		return result
+	}
+	return _deep(routes)
+}
+
 /** 添加item项 */
 function addItem(args: AddItemArgs) {
 	const { curPath, route } = args
@@ -31,15 +52,11 @@ function addItem(args: AddItemArgs) {
 	const o: ItemType = {
 		key: curPath,
 		label: Array.isArray(children) ? name : <Link to={curPath}>{name}</Link>,
-		children: []
+		...(!children?.length ? { children: [] } : {})
 	}
 
 	if (icon) {
 		o.icon = icon
-	}
-
-	if (!children || !children?.length) {
-		delete o.children
 	}
 
 	return o
@@ -73,7 +90,7 @@ function isLeftTabs(route: RouteConfig) {
 	return true
 }
 
-/** 分离路由，筛选出需要left，和top分开渲染的路由 */
+/** 根据权限和layout信息分离路由，筛选出需要left，和top分开渲染的路由 */
 function deepSeparate(args: DeepSeparateArgs) {
 	const { route, leftTabs, topTabs, parentPath, routeAccess } = args
 	const { name, layout, children, path, access } = route
