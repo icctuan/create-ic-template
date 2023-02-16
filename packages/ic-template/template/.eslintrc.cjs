@@ -3,7 +3,8 @@ module.exports = {
 	// 指定脚本的运行环境
 	env: {
 		browser: true,
-		es2021: true
+		es2021: true,
+		node: true
 	},
 	// 添加插件（只是加载，拥有了使用它的能力，具体增加的规则需配合extends使用）
 	plugins: ['react', '@typescript-eslint', 'prettier'],
@@ -49,6 +50,7 @@ module.exports = {
 		'@typescript-eslint/explicit-function-return-type': 'off',
 		'@typescript-eslint/no-non-null-assertion': 'off',
 		'@typescript-eslint/no-explicit-any': 'off',
-		'@typescript-eslint/no-empty-function': 'off'
+		'@typescript-eslint/no-empty-function': 'off',
+		'@typescript-eslint/no-var-requires': 0
 	}
 }
