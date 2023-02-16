@@ -21,7 +21,7 @@ const getInitialState = async (): Promise<InitialStateType> => {
 const accessFactory = (
 	initialState: InitialStateType
 ): Record<string, boolean> => {
-	console.log('初始权限信息', initialState)
+	console.log('初始信息', initialState)
 	return {
 		canNav1: false // fakeData, 返回处理后的权限值
 	}

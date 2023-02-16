@@ -52,7 +52,7 @@ function addItem(args: AddItemArgs) {
 	const o: ItemType = {
 		key: curPath,
 		label: Array.isArray(children) ? name : <Link to={curPath}>{name}</Link>,
-		...(!children?.length ? { children: [] } : {})
+		...(!children?.length ? {} : { children: [] })
 	}
 
 	if (icon) {
