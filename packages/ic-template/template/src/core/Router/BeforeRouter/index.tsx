@@ -9,6 +9,7 @@ export interface BeforeRouterProps {
 	children: JSX.Element
 }
 
+/** 路由守卫组件 */
 const BeforeRouter = (props: BeforeRouterProps) => {
 	const { children } = props
 	const { pathname } = useLocation()

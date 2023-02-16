@@ -1,6 +1,6 @@
 /* global NodeJS */
 /** 进度条loading */
-import React, { FC, useEffect, useRef } from 'react'
+import { FC, useEffect, useRef } from 'react'
 import ReactDOM from 'react-dom'
 import Nprogress from 'nprogress'
 
@@ -12,7 +12,7 @@ type ProcessLoadingProps = {
 	instance: HTMLElement | null
 	hide: () => void
 	parent: HTMLElement | Element | null
-} & React.FC<{
+} & FC<{
 	visible?: boolean
 	spin?: boolean
 }>

@@ -1,4 +1,4 @@
-// 首页
+// children2
 import { FC } from 'react'
 
 const children2: FC<any> = () => {

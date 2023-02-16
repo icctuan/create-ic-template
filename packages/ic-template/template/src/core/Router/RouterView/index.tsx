@@ -1,10 +1,12 @@
 // 根据routes渲染路由视图
 import { FC, useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
+
 import routes from '@/routes'
 import { Provider } from '@/core/context/router'
 import { useGlobal } from '@/core/context/global'
 import { getMenuItems } from '../utils'
+import { Items } from '../type'
 
 export type RouteContainerProps = {
 	// routes: Routes
@@ -12,11 +14,12 @@ export type RouteContainerProps = {
 }
 
 const initState = {
-	leftTabs: [],
-	topTabs: []
+	leftTabs: [] as Items,
+	topTabs: [] as Items
 }
 
-const RouterView: FC<RouteContainerProps> = props => {
+/** 根据routes渲染路由视图 */
+const RouterView: FC<RouteContainerProps> = () => {
 	const [routeState, setRouteState] = useState(initState)
 
 	// 权限

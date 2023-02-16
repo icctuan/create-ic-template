@@ -1,6 +1,7 @@
+// 水平布局
 import { FC, useEffect, useState } from 'react'
-import { useLocation, useRoutes } from 'react-router-dom'
-import { Breadcrumb, Layout, Menu } from 'antd'
+import { useLocation, useRoutes, RouteObject } from 'react-router-dom'
+import { Layout, Menu } from 'antd'
 
 import TopHeader from './TopHeader'
 
@@ -9,7 +10,7 @@ import routes from '@/routes'
 
 import styles from './index.module.less'
 
-const { Header, Content, Footer, Sider } = Layout
+const { Header, Content, Sider } = Layout
 
 export type MenuState = {
 	selectedKeys: string[]
@@ -34,7 +35,7 @@ const HLayout: FC<any> = () => {
 
 	// 找到该路径下要渲染的dom
 	const layoutRoutes = routes.find(item => item.path === '/*')?.children || []
-	const ele = useRoutes(layoutRoutes, location)
+	const ele = useRoutes(layoutRoutes as RouteObject[], location)
 
 	const [menuState, setMenuState] = useState<MenuState>({
 		openKeys: [],

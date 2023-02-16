@@ -1,3 +1,4 @@
+// 全局context
 import { FC, ReactNode, useEffect, useMemo, useState } from 'react'
 import { InitialStateType, Provider, initGlobalState } from '../context/global'
 
@@ -20,8 +21,9 @@ const getInitialState = async (): Promise<InitialStateType> => {
 const accessFactory = (
 	initialState: InitialStateType
 ): Record<string, boolean> => {
+	console.log('初始权限信息', initialState)
 	return {
-		canNav1: false
+		canNav1: false // fakeData, 返回处理后的权限值
 	}
 }
 
