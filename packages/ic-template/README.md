@@ -1,5 +1,4 @@
 # ic-template
-create-ic-template 命令生成的默认模板
+web项目模板
 
-webpack
-react
+`webpack` `react` `TypeScript`

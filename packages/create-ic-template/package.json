@@ -1,8 +1,8 @@
 {
   "name": "create-ic-template",
-  "author": "icctuan",
+  "author": "yanyii(https://github.com/icctuan)",
   "version": "1.0.1",
-  "description": "开发模板",
+  "description": "下载开发模板",
   "main": "index.js",
   "scripts": {
     "build": "node build.js",

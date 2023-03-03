@@ -1,8 +1,8 @@
 {
   "name": "ic-template",
-  "description": "默认模板",
+  "description": "web项目模板",
   "version": "0.0.0",
-  "author": "icctuan",
+  "author": "yanyii(https://github.com/icctuan)",
   "type": "module",
   "license": "MIT"
 }
