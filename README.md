@@ -4,8 +4,9 @@
 
 ## 使用
 
+默认创建[web 项目模板](https://www.npmjs.com/package/ic-template)
+
 ```cmd
-// 创建web项目模板
 npx create-ic-template <project-name>
 ```
 

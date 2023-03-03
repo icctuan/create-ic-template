@@ -2,7 +2,7 @@
   "name": "ic-template",
   "description": "web项目模板",
   "version": "0.0.0",
-  "author": "yanyii(https://github.com/icctuan)",
+  "author": "yanyii <601838356@qq.com> (https://github.com/icctuan)",
   "type": "module",
   "license": "MIT"
 }
