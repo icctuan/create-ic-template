@@ -4,7 +4,7 @@
 
 ## 使用
 
-默认创建[web 项目模板](https://www.npmjs.com/package/ic-template)
+默认创建[web 项目模板](https://github.com/icctuan/create-ic-template/tree/main/packages/ic-template)
 
 ```cmd
 npx create-ic-template <project-name>
